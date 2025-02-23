@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ultimate Tic Tac Toe - Anya Singh</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #fcfcfc;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .game-container {
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .mini-board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            background: #eee;
+            padding: 5px;
+            border-radius: 4px;
+        }
+
+        .cell {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .cell:hover {
+            background: #f0f0f0;
+        }
+
+        .cell:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .status {
+            margin: 20px 0;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background: #0070f3;
+            color: white;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+        }
+
+        button:hover {
+            background: #0051cc;
+        }
+
+        .home-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            text-decoration: none;
+            color: #444;
+            font-size: 0.9em;
+        }
+
+        .home-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <a href="/" class="home-link">← Back to Home</a>
+    <h1>Ultimate Tic Tac Toe</h1>
+    <div class="game-container">
+        <div class="status" id="status">Player X's turn</div>
+        <div class="board" id="board"></div>
+        <div class="controls">
+            <button onclick="newGame()">New Game</button>
+            <button onclick="makeAIMove()">AI Move</button>
+        </div>
+    </div>
+
+    <script>
+        let gameId = null;
+        let gameState = null;
+
+        function createBoard() {
+            const board = document.getElementById('board');
+            board.innerHTML = '';
+            
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 3; j++) {
+                    const miniBoard = document.createElement('div');
+                    miniBoard.className = 'mini-board';
+                    
+                    for (let k = 0; k < 3; k++) {
+                        for (let l = 0; l < 3; l++) {
+                            const cell = document.createElement('button');
+                            cell.className = 'cell';
+                            cell.onclick = () => makeMove(i, j, k, l);
+                            miniBoard.appendChild(cell);
+                        }
+                    }
+                    
+                    board.appendChild(miniBoard);
+                }
+            }
+        }
+
+        function updateBoard() {
+            const miniBoards = document.querySelectorAll('.mini-board');
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 3; j++) {
+                    const miniBoard = miniBoards[i * 3 + j];
+                    const cells = miniBoard.querySelectorAll('.cell');
+                    const boardState = gameState.boards[i][j];
+                    
+                    for (let k = 0; k < 3; k++) {
+                        for (let l = 0; l < 3; l++) {
+                            const cell = cells[k * 3 + l];
+                            cell.textContent = boardState.board[k][l] || '';
+                            
+                            // Disable cells in won/tied boards
+                            if (boardState.winner || boardState.is_full) {
+                                cell.disabled = true;
+                            }
+                            
+                            // Enable/disable based on next_board
+                            if (gameState.next_board) {
+                                const [nextRow, nextCol] = gameState.next_board;
+                                cell.disabled = i !== nextRow || j !== nextCol;
+                            }
+                        }
+                    }
+                    
+                    // Show winner of mini-board
+                    if (boardState.winner) {
+                        miniBoard.style.backgroundColor = '#e0e0e0';
+                    }
+                }
+            }
+            
+            // Update status
+            const status = document.getElementById('status');
+            if (gameState.overall_winner) {
+                status.textContent = `Game Over! ${gameState.overall_winner} wins!`;
+            } else {
+                status.textContent = `Player ${gameState.current_player}'s turn`;
+                if (gameState.next_board) {
+                    status.textContent += ` (Must play in board [${gameState.next_board}])`;
+                }
+            }
+        }
+
+        async function newGame() {
+            const response = await fetch('/tictactoe/api/new-game', {
+                method: 'POST'
+            });
+            const data = await response.json();
+            gameId = data.game_id;
+            createBoard();
+            
+            // Initialize game state
+            gameState = {
+                current_player: 'X',
+                overall_winner: null,
+                next_board: null,
+                boards: Array(3).fill().map(() => 
+                    Array(3).fill().map(() => ({
+                        winner: null,
+                        board: Array(3).fill().map(() => Array(3).fill(null)),
+                        is_full: false
+                    }))
+                )
+            };
+            
+            updateBoard();
+        }
+
+        async function makeMove(boardRow, boardCol, cellRow, cellCol) {
+            if (!gameId) return;
+            
+            const response = await fetch('/tictactoe/api/make-move', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    game_id: gameId,
+                    board_row: boardRow,
+                    board_col: boardCol,
+                    cell_row: cellRow,
+                    cell_col: cellCol
+                })
+            });
+            
+            const data = await response.json();
+            if (data.success) {
+                gameState = data.game_state;
+                updateBoard();
+            } else if (data.message) {
+                alert(data.message);
+            }
+        }
+
+        async function makeAIMove() {
+            if (!gameId) return;
+            
+            const response = await fetch('/tictactoe/api/ai-move', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    game_id: gameId,
+                    depth: 3
+                })
+            });
+            
+            const data = await response.json();
+            if (data.success) {
+                gameState = data.game_state;
+                updateBoard();
+            } else if (data.message) {
+                alert(data.message);
+            }
+        }
+
+        // Start a new game when the page loads
+        window.onload = newGame;
+    </script>
+</body>
+</html> 

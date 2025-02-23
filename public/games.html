@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>games - Anya Singh</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style type="text/css">
+        body {
+            margin: 60px auto;
+            max-width: 650px;
+            line-height: 1.7;
+            font-size: 17px;
+            color: #444;
+            padding: 0 20px;
+            text-align: left;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #fcfcfc;
+        }
+
+        h1, h2, h3 {
+            line-height: 1.2;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        header {
+            margin-bottom: 10px;
+        }
+
+        nav {
+            margin-bottom: 25px;
+        }
+
+        nav a {
+            text-decoration: none;
+            margin-right: 20px;
+            color: #444;
+            font-size: 0.95em;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .game-box {
+            aspect-ratio: 4/3;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            overflow: hidden;
+            position: relative;
+            border: none;
+            padding: 0;
+        }
+
+        .game-box:hover {
+            transform: translateY(-2px);
+        }
+
+        .game-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                margin: 30px auto;
+                padding: 0 15px;
+            }
+            
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>games</h1>
+    </header>
+    <nav>
+        <a href="./index.html">home</a>
+        <a href="./writing.html">writing</a>
+        <a href="./bookshelf.html">bookshelf</a>
+        <a href="./games.html">games</a>
+        <a href="./email.html">email</a>
+    </nav>
+    
+    <div class="games-grid">
+        <a href="https://galactic-grid-sepia.vercel.app" target="_blank" class="game-box">
+            <img src="tictactoe.jpg" alt="Ultimate Tic Tac Toe">
+        </a>
+        <a href="#" target="_blank" class="game-box">
+            <img src="game2.jpg" alt="">
+        </a>
+        <a href="#" target="_blank" class="game-box">
+            <img src="game3.jpg" alt="">
+        </a>
+        <a href="#" target="_blank" class="game-box">
+            <img src="game4.jpg" alt="">
+        </a>
+    </div>
+</body>
+</html> 

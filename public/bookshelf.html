@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Anya Singh – Bookshelf</title>
-    <link href="https://cdn.jsdelivr.net/npm/@fontsource/iosevka/index.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style type="text/css">
         body {
             margin: 60px auto;
@@ -14,7 +14,7 @@
             color: #444;
             padding: 0 20px;
             text-align: left;
-            font-family: 'Iosevka', monospace;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: #fcfcfc;
         }
 
@@ -29,9 +29,7 @@
         }
 
         nav {
-            margin-bottom: 40px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         nav a {
@@ -51,20 +49,21 @@
 
         ul {
             list-style-type: none;
-            margin-left: 0;
-            margin-bottom: 40px;
+            margin: 0;
+            padding: 0;
         }
 
         li {
             margin-bottom: 12px;
-            position: relative;
-            padding-left: 20px;
         }
 
-        li:before {
-            content: "→";
-            position: absolute;
-            left: 0;
+        li a {
+            color: #444;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            text-decoration: underline;
         }
 
         @media (max-width: 600px) {
@@ -83,6 +82,7 @@
         <a href="./index.html">home</a>
         <a href="./writing.html">writing</a>
         <a href="./bookshelf.html">bookshelf</a>
+        <a href="./games.html">games</a>
         <a href="./email.html">email</a>
     </nav>
 

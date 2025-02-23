@@ -1,0 +1,20 @@
+@font-face {
+    font-family: 'Iosevka Slab';
+    src: url('../fonts/IosevkaSlab-Regular.ttc') format('truetype-collections');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Iosevka Slab';
+    src: url('../fonts/IosevkaSlab-Bold.ttc') format('truetype-collections');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Iosevka Slab';
+    src: url('../fonts/IosevkaSlab-Medium.ttc') format('truetype-collections');
+    font-weight: 500;
+    font-style: normal;
+} 
