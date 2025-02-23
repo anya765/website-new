@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{title}} - Anya Singh</title>
+    <link href="https://cdn.jsdelivr.net/npm/@fontsource/iosevka/index.css" rel="stylesheet">
+    <style type="text/css">
+        body {
+            margin: 60px auto;
+            max-width: 650px;
+            line-height: 1.7;
+            font-size: 17px;
+            color: #444;
+            padding: 0 20px;
+            text-align: left;
+            font-family: 'Iosevka', monospace;
+            background-color: #fcfcfc;
+        }
+
+        h1, h2, h3 {
+            line-height: 1.2;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        header {
+            margin-bottom: 20px;
+        }
+
+        .date {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 30px;
+            display: block;
+        }
+
+        nav {
+            margin-bottom: 40px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            margin-right: 20px;
+            color: #444;
+            font-size: 0.95em;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        p {
+            margin-bottom: 25px;
+        }
+
+        pre {
+            background: #f6f6f6;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: 'Iosevka', monospace;
+            font-size: 0.9em;
+        }
+
+        blockquote {
+            border-left: 3px solid #ddd;
+            margin-left: 0;
+            padding-left: 20px;
+            font-style: italic;
+            color: #666;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                margin: 30px auto;
+                padding: 0 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>{{title}}</h1>
+        <span class="date">{{date}}</span>
+    </header>
+    <nav>
+        <a href="./index.html">home</a>
+        <a href="./writing.html">writing</a>
+        <a href="./bookshelf.html">bookshelf</a>
+        <a href="./email.html">email</a>
+    </nav>
+
+    <article>
+        {{content}}
+    </article>
+</body>
+</html> 

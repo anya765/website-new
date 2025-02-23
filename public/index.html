@@ -4,40 +4,47 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Anya Singh</title>
+    <link href="https://cdn.jsdelivr.net/npm/@fontsource/iosevka/index.css" rel="stylesheet">
     <style type="text/css">
         body {
-            margin: 30px auto;
-            max-width: 700px;
-            line-height: 1.6;
-            font-size: 18px;
+            margin: 60px auto;
+            max-width: 650px;
+            line-height: 1.7;
+            font-size: 17px;
             color: #444;
-            padding: 20px;
+            padding: 0 20px;
             text-align: left;
+            font-family: 'Iosevka', monospace;
+            background-color: #fcfcfc;
         }
 
         h1, h2, h3 {
             line-height: 1.2;
-            margin-bottom: 5px;
+            margin-bottom: 15px;
+            font-weight: 600;
         }
 
         header {
-            margin-bottom: 10px;
+            margin-bottom: 20px;
         }
 
         aside {
             font-style: italic;
             color: #666;
-            margin-top: 10px;
+            margin-top: 15px;
         }
 
         nav {
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
         }
 
         nav a {
             text-decoration: none;
-            margin-right: 15px;
+            margin-right: 20px;
             color: #444;
+            font-size: 0.95em;
         }
 
         nav a:hover {
@@ -45,14 +52,33 @@
         }
 
         p {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         ul {
-            list-style-type: disc;
-            margin-left: 20px;
+            list-style-type: none;
+            margin-left: 0;
+            margin-bottom: 40px;
         }
 
+        li {
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                margin: 30px auto;
+                padding: 0 15px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -67,21 +93,26 @@
     </nav>
 
     <p>
-        I spend most of my time these days working on interesting engineering problems.The rest of the times, I like playing games like Go -- and chess.
-    <p> I appreciate thoughtful disagreements and like having my mind change about something. I've often found these moments to be most critical.</p>
-    <p> Currently, I’m focused on developing a strong mental framework for creating hypotheses about different industries. And occasionally writing about my thoughts on here.</p>
+        I spend most of my time these days working on interesting engineering problems, particularly in controls and systems. I'm fascinated by the elegance of control theory and how it allows us to understand and manipulate complex dynamic systems. The rest of the time, I like playing games like Go -- and chess.
+    </p>
+    <p>
+        I appreciate thoughtful disagreements and like having my mind change about something. I've often found these moments to be most critical.
+    </p>
+    <p>
+        Currently, I'm focused on developing a strong mental framework for creating hypotheses about different industries, especially in the realm of control systems and automation. And occasionally writing about my thoughts on here.
+    </p>
+
     <h3>Previously I:</h3>
     <ul>
-        <li>Was an early employee at a cool drone company, and learned how to fly FPV drones. Now I'm a part time "drone show engineer." </li>
+        <li>Was an early employee at a cool drone company, and learned how to fly FPV drones. Now I'm a part time "drone show engineer."</li>
         <li>Led software and wearables for a now acquired high performance athletics company</li>
         <li>Did research and engineering with Purdue & Ethereum Foundation on ZK Proofs</li>
         <li>Moved out @ 17 + played tennis in SoCal for 6 months after graduating high school</li>
         <li>Played an abnormal amount of chess growing up (and represented Canada at intl. tournaments + SPFGI 3x)</li>
         <li>Analyzed satellite telemetry data @ JPL</li>
-        <li>Built Lithium Titanate (last forever) batteries </li>
+        <li>Built Lithium Titanate (last forever) batteries</li>
         <li>Wrote a paper on how the market for lemons perpetuates poverty traps with Solar4Africa</li>
         <li>Did other things & (kinda) failed – like creating an AI card game similar to Cards Against Humanity, trying to run my own online electronics shop -- and going to school...</li>
     </ul>
-
 </body>
 </html>

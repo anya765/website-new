@@ -3,35 +3,42 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>writing</title>
+    <title>writing - Anya Singh</title>
+    <link href="https://cdn.jsdelivr.net/npm/@fontsource/iosevka/index.css" rel="stylesheet">
     <style type="text/css">
         body {
-            margin: 30px auto;
-            max-width: 700px;
-            line-height: 1.6;
-            font-size: 18px;
+            margin: 60px auto;
+            max-width: 650px;
+            line-height: 1.7;
+            font-size: 17px;
             color: #444;
-            padding: 20px;
+            padding: 0 20px;
             text-align: left;
+            font-family: 'Iosevka Term Slab', monospace;
+            background-color: #fcfcfc;
         }
 
         h1, h2, h3 {
             line-height: 1.2;
-            margin-bottom: 5px;
+            margin-bottom: 15px;
+            font-weight: 600;
         }
 
         header {
-            margin-bottom: 10px;
+            margin-bottom: 20px;
         }
 
         nav {
-            margin-bottom:  30px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
         }
 
         nav a {
             text-decoration: none;
-            margin-right: 15px;
+            margin-right: 20px;
             color: #444;
+            font-size: 0.95em;
         }
 
         nav a:hover {
@@ -39,9 +46,39 @@
         }
 
         p {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
+        ul {
+            list-style-type: none;
+            margin-left: 0;
+            margin-bottom: 40px;
+        }
+
+        li {
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+        }
+
+        .date {
+            color: #666;
+            font-size: 0.9em;
+            margin-left: 10px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                margin: 30px auto;
+                padding: 0 15px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -55,12 +92,14 @@
         <a href="./email.html">email</a>
     </nav>
     
-    <p> <a href = "./game.html"> to build a good game</a></p>
-    <p> <a href = "./beliefs.html"> my beliefs </a></p>
-    <p> <a href = "./friends.html"> choosing good friends</a></p>
-    <p> <a href = "./poverty.html"> a hypothesis on poverty</a></p>
-
-
+    <ul>
+        <!-- BLOG-LIST-START -->
+        <li><a href="./game.html">to build a good game</a></li>
+        <li><a href="./beliefs.html">my beliefs</a></li>
+        <li><a href="./friends.html">choosing good friends</a></li>
+        <li><a href="./poverty.html">a hypothesis on poverty</a></li>
+        <!-- BLOG-LIST-END -->
+    </ul>
 
 </body>
 </html>
