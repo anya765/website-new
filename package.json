@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "playwright test",
+    "test:install": "playwright install chromium"
   },
   "dependencies": {
     "next": "latest",
@@ -14,6 +16,7 @@
     "react-dom": "latest"
   },
   "devDependencies": {
+    "@playwright/test": "^1.47.0",
     "eslint": "latest",
     "eslint-config-next": "latest",
     "gray-matter": "^4.0.3",

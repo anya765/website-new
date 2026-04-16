@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ultimate tic-tac-toe - Anya Singh</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style type="text/css">
+        body {
+            margin: 50px auto;
+            max-width: 850px;
+            line-height: 1.6;
+            font-size: 16px;
+            color: #444;
+            padding: 0 24px 80px;
+            text-align: left;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #fcfcfc;
+        }
+
+        h1, h2, h3 {
+            line-height: 1.2;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        header { margin-bottom: 10px; }
+        nav { margin-bottom: 25px; }
+
+        nav a {
+            text-decoration: none;
+            margin-right: 20px;
+            color: #444;
+            font-size: 0.95em;
+        }
+
+        nav a:hover { text-decoration: underline; }
+
+        p { margin-bottom: 20px; }
+
+        .rules {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 25px;
+        }
+
+        .status {
+            font-size: 1em;
+            margin-bottom: 18px;
+            color: #444;
+            min-height: 1.5em;
+        }
+
+        .status .turn-x { color: #2563eb; font-weight: 600; }
+        .status .turn-o { color: #dc2626; font-weight: 600; }
+
+        .big-board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 8px;
+            background-color: #444;
+            padding: 8px;
+            border-radius: 6px;
+            width: 100%;
+            max-width: 480px;
+            aspect-ratio: 1/1;
+            margin-bottom: 20px;
+        }
+
+        .small-board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 2px;
+            background-color: #ddd;
+            padding: 3px;
+            border-radius: 3px;
+            position: relative;
+            min-width: 0;
+            min-height: 0;
+        }
+
+        .small-board.active {
+            background-color: #fde68a;
+        }
+
+        .small-board.won-x::after,
+        .small-board.won-o::after,
+        .small-board.draw::after {
+            content: '';
+            position: absolute;
+            inset: 3px;
+            border-radius: 2px;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: clamp(2.5rem, 10vw, 4.5rem);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .small-board.won-x::after {
+            content: 'X';
+            background-color: rgba(37, 99, 235, 0.12);
+            color: #2563eb;
+        }
+
+        .small-board.won-o::after {
+            content: 'O';
+            background-color: rgba(220, 38, 38, 0.12);
+            color: #dc2626;
+        }
+
+        .small-board.draw::after {
+            content: '–';
+            background-color: rgba(100, 100, 100, 0.1);
+            color: #888;
+        }
+
+        .cell {
+            background-color: #fcfcfc;
+            border: none;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: clamp(0.7rem, 2.5vw, 1.1rem);
+            padding: 0;
+            color: #444;
+            transition: background-color 0.15s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 2px;
+            min-width: 0;
+            min-height: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .cell:hover:not(:disabled) {
+            background-color: #f0f0f0;
+        }
+
+        .cell:disabled {
+            cursor: default;
+        }
+
+        .cell.x { color: #2563eb; }
+        .cell.o { color: #dc2626; }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .mode-toggle {
+            display: inline-flex;
+            border: 1px solid #444;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .mode-toggle button {
+            background: #fff;
+            border: none;
+            color: #444;
+            padding: 6px 14px;
+            font-family: inherit;
+            font-size: 0.92em;
+            cursor: pointer;
+            transition: background 0.1s, color 0.1s;
+        }
+
+        .mode-toggle button.active {
+            background: #444;
+            color: #fcfcfc;
+        }
+
+        .mode-toggle button:not(.active):hover {
+            background: #f0f0f0;
+        }
+
+        button.reset {
+            background: #fff;
+            border: 1px solid #444;
+            color: #444;
+            padding: 6px 14px;
+            font-family: inherit;
+            font-size: 0.92em;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: background 0.1s;
+        }
+
+        button.reset:hover {
+            background: #f0f0f0;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                margin: 30px auto;
+                padding: 0 15px;
+            }
+            .big-board {
+                gap: 6px;
+                padding: 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>ultimate tic-tac-toe</h1>
+    </header>
+    <nav>
+        <a href="./index.html">home</a>
+        <a href="./writing.html">writing</a>
+        <a href="./bookshelf.html">bookshelf</a>
+        <a href="/games">games</a>
+        <a href="./email.html">email</a>
+    </nav>
+
+    <p class="rules">
+        nine tic-tac-toe boards in a 3×3 grid. the cell you pick inside a small board decides which small board your opponent plays in next. win three small boards in a row to win the game. if you're sent to a board that's already decided, you can play anywhere.
+    </p>
+
+    <div class="controls">
+        <div class="mode-toggle">
+            <button id="modeAi" class="active">vs computer</button>
+            <button id="mode2p">2 players</button>
+        </div>
+        <button class="reset" id="resetBtn">reset</button>
+    </div>
+
+    <div class="status" id="status">turn: <span class="turn-x">X</span></div>
+
+    <div class="big-board" id="bigBoard"></div>
+
+    <script>
+        const LINES = [
+            [0,1,2],[3,4,5],[6,7,8],
+            [0,3,6],[1,4,7],[2,5,8],
+            [0,4,8],[2,4,6]
+        ];
+
+        const AI_PLAYER = 'O';
+        const HUMAN_PLAYER = 'X';
+
+        let boards, bigBoard, currentPlayer, activeBoard, gameOver, winner;
+        let mode = 'ai';
+        let aiThinking = false;
+
+        function init() {
+            boards = Array.from({length: 9}, () => Array(9).fill(null));
+            bigBoard = Array(9).fill(null);
+            currentPlayer = 'X';
+            activeBoard = null;
+            gameOver = false;
+            winner = null;
+            aiThinking = false;
+            render();
+        }
+
+        function checkWin(cells) {
+            for (const [a,b,c] of LINES) {
+                if (cells[a] && cells[a] === cells[b] && cells[a] === cells[c]) {
+                    return cells[a];
+                }
+            }
+            return null;
+        }
+
+        function isFull(cells) {
+            return cells.every(c => c !== null);
+        }
+
+        function applyMoveMutable(state, boardIdx, cellIdx) {
+            state.boards[boardIdx][cellIdx] = state.currentPlayer;
+            const smallWinner = checkWin(state.boards[boardIdx]);
+            if (smallWinner) {
+                state.bigBoard[boardIdx] = smallWinner;
+            } else if (isFull(state.boards[boardIdx])) {
+                state.bigBoard[boardIdx] = 'D';
+            }
+            const bigWinner = checkWin(state.bigBoard.map(v => v === 'D' ? null : v));
+            if (bigWinner) {
+                state.gameOver = true;
+                state.winner = bigWinner;
+            } else if (state.bigBoard.every(v => v !== null)) {
+                state.gameOver = true;
+                state.winner = 'D';
+            }
+            const nextBoard = cellIdx;
+            if (state.bigBoard[nextBoard] || isFull(state.boards[nextBoard])) {
+                state.activeBoard = null;
+            } else {
+                state.activeBoard = nextBoard;
+            }
+            state.currentPlayer = state.currentPlayer === 'X' ? 'O' : 'X';
+        }
+
+        function handleCellClick(boardIdx, cellIdx) {
+            if (gameOver || aiThinking) return;
+            if (bigBoard[boardIdx]) return;
+            if (activeBoard !== null && activeBoard !== boardIdx) return;
+            if (boards[boardIdx][cellIdx]) return;
+
+            const state = { boards, bigBoard, activeBoard, currentPlayer, gameOver, winner };
+            applyMoveMutable(state, boardIdx, cellIdx);
+            boards = state.boards;
+            bigBoard = state.bigBoard;
+            activeBoard = state.activeBoard;
+            currentPlayer = state.currentPlayer;
+            gameOver = state.gameOver;
+            winner = state.winner;
+            render();
+
+            if (mode === 'ai' && !gameOver && currentPlayer === AI_PLAYER) {
+                aiThinking = true;
+                render();
+                setTimeout(runAiTurn, 280);
+            }
+        }
+
+        function cloneState(state) {
+            return {
+                boards: state.boards.map(b => b.slice()),
+                bigBoard: state.bigBoard.slice(),
+                activeBoard: state.activeBoard,
+                currentPlayer: state.currentPlayer,
+                gameOver: state.gameOver,
+                winner: state.winner
+            };
+        }
+
+        function getLegalMoves(state) {
+            if (state.gameOver) return [];
+            const moves = [];
+            const targets = state.activeBoard === null
+                ? [0,1,2,3,4,5,6,7,8].filter(b => !state.bigBoard[b])
+                : [state.activeBoard];
+            for (const b of targets) {
+                for (let c = 0; c < 9; c++) {
+                    if (!state.boards[b][c]) moves.push([b, c]);
+                }
+            }
+            return moves;
+        }
+
+        function evaluate(state, player) {
+            const opp = player === 'X' ? 'O' : 'X';
+            if (state.winner === player) return 100000;
+            if (state.winner === opp) return -100000;
+            if (state.winner === 'D') return 0;
+
+            let score = 0;
+
+            for (let b = 0; b < 9; b++) {
+                if (state.bigBoard[b] === player) score += 40;
+                else if (state.bigBoard[b] === opp) score -= 40;
+            }
+            if (state.bigBoard[4] === player) score += 25;
+            else if (state.bigBoard[4] === opp) score -= 25;
+            for (const corner of [0,2,6,8]) {
+                if (state.bigBoard[corner] === player) score += 10;
+                else if (state.bigBoard[corner] === opp) score -= 10;
+            }
+
+            for (const [a,b,c] of LINES) {
+                const line = [state.bigBoard[a], state.bigBoard[b], state.bigBoard[c]]
+                    .map(v => v === 'D' ? null : v);
+                const pc = line.filter(v => v === player).length;
+                const oc = line.filter(v => v === opp).length;
+                if (pc === 2 && oc === 0) score += 25;
+                if (oc === 2 && pc === 0) score -= 25;
+                if (pc === 1 && oc === 0) score += 5;
+                if (oc === 1 && pc === 0) score -= 5;
+            }
+
+            for (let b = 0; b < 9; b++) {
+                if (state.bigBoard[b]) continue;
+                for (const [a,bb,c] of LINES) {
+                    const line = [state.boards[b][a], state.boards[b][bb], state.boards[b][c]];
+                    const pc = line.filter(v => v === player).length;
+                    const oc = line.filter(v => v === opp).length;
+                    if (pc === 2 && oc === 0) score += 3;
+                    if (oc === 2 && pc === 0) score -= 3;
+                }
+                if (state.boards[b][4] === player) score += 2;
+                else if (state.boards[b][4] === opp) score -= 2;
+            }
+
+            return score;
+        }
+
+        function minimax(state, depth, alpha, beta, aiPlayer) {
+            if (depth === 0 || state.gameOver) {
+                return evaluate(state, aiPlayer);
+            }
+            const moves = getLegalMoves(state);
+            if (moves.length === 0) return evaluate(state, aiPlayer);
+
+            const maximizing = state.currentPlayer === aiPlayer;
+            if (maximizing) {
+                let best = -Infinity;
+                for (const [b, c] of moves) {
+                    const next = cloneState(state);
+                    applyMoveMutable(next, b, c);
+                    const ev = minimax(next, depth - 1, alpha, beta, aiPlayer);
+                    if (ev > best) best = ev;
+                    if (best > alpha) alpha = best;
+                    if (beta <= alpha) break;
+                }
+                return best;
+            } else {
+                let best = Infinity;
+                for (const [b, c] of moves) {
+                    const next = cloneState(state);
+                    applyMoveMutable(next, b, c);
+                    const ev = minimax(next, depth - 1, alpha, beta, aiPlayer);
+                    if (ev < best) best = ev;
+                    if (best < beta) beta = best;
+                    if (beta <= alpha) break;
+                }
+                return best;
+            }
+        }
+
+        function pickAiMove() {
+            const root = { boards, bigBoard, activeBoard, currentPlayer, gameOver, winner };
+            const moves = getLegalMoves(root);
+            if (moves.length === 0) return null;
+
+            const depth = moves.length > 20 ? 2 : 3;
+            let bestMove = moves[0];
+            let bestScore = -Infinity;
+            let alpha = -Infinity;
+            const beta = Infinity;
+
+            for (const [b, c] of moves) {
+                const next = cloneState(root);
+                applyMoveMutable(next, b, c);
+                const score = minimax(next, depth - 1, alpha, beta, AI_PLAYER);
+                if (score > bestScore) {
+                    bestScore = score;
+                    bestMove = [b, c];
+                }
+                if (score > alpha) alpha = score;
+            }
+            return bestMove;
+        }
+
+        function runAiTurn() {
+            if (gameOver || currentPlayer !== AI_PLAYER) {
+                aiThinking = false;
+                render();
+                return;
+            }
+            const move = pickAiMove();
+            aiThinking = false;
+            if (!move) { render(); return; }
+            const state = { boards, bigBoard, activeBoard, currentPlayer, gameOver, winner };
+            applyMoveMutable(state, move[0], move[1]);
+            boards = state.boards;
+            bigBoard = state.bigBoard;
+            activeBoard = state.activeBoard;
+            currentPlayer = state.currentPlayer;
+            gameOver = state.gameOver;
+            winner = state.winner;
+            render();
+        }
+
+        function render() {
+            const bigBoardEl = document.getElementById('bigBoard');
+            bigBoardEl.innerHTML = '';
+
+            for (let b = 0; b < 9; b++) {
+                const smallEl = document.createElement('div');
+                smallEl.className = 'small-board';
+
+                const isActive = !gameOver && !bigBoard[b] && (activeBoard === null || activeBoard === b);
+                if (isActive) smallEl.classList.add('active');
+
+                if (bigBoard[b] === 'X') smallEl.classList.add('won-x');
+                else if (bigBoard[b] === 'O') smallEl.classList.add('won-o');
+                else if (bigBoard[b] === 'D') smallEl.classList.add('draw');
+
+                for (let c = 0; c < 9; c++) {
+                    const cellEl = document.createElement('button');
+                    cellEl.className = 'cell';
+                    const val = boards[b][c];
+                    if (val) {
+                        cellEl.textContent = val;
+                        cellEl.classList.add(val.toLowerCase());
+                    }
+                    const humanTurn = mode !== 'ai' || currentPlayer === HUMAN_PLAYER;
+                    const clickable = !gameOver && !aiThinking && humanTurn &&
+                        !bigBoard[b] && !val &&
+                        (activeBoard === null || activeBoard === b);
+                    cellEl.disabled = !clickable;
+                    cellEl.addEventListener('click', () => handleCellClick(b, c));
+                    smallEl.appendChild(cellEl);
+                }
+
+                bigBoardEl.appendChild(smallEl);
+            }
+
+            const statusEl = document.getElementById('status');
+            if (gameOver) {
+                if (winner === 'D') {
+                    statusEl.textContent = 'draw';
+                } else {
+                    const cls = winner === 'X' ? 'turn-x' : 'turn-o';
+                    let label = winner;
+                    if (mode === 'ai') label = winner === HUMAN_PLAYER ? 'you' : 'computer';
+                    statusEl.innerHTML = `<span class="${cls}">${label}</span> wins`;
+                }
+            } else if (aiThinking) {
+                statusEl.innerHTML = `<span class="turn-o">computer</span> is thinking…`;
+            } else {
+                const cls = currentPlayer === 'X' ? 'turn-x' : 'turn-o';
+                let label = currentPlayer;
+                if (mode === 'ai') label = currentPlayer === HUMAN_PLAYER ? 'your turn' : 'computer';
+                const where = activeBoard === null ? ' — play anywhere' : '';
+                statusEl.innerHTML = mode === 'ai'
+                    ? `<span class="${cls}">${label}</span>${where}`
+                    : `turn: <span class="${cls}">${currentPlayer}</span>${where}`;
+            }
+        }
+
+        function setMode(next) {
+            if (mode === next) return;
+            mode = next;
+            document.getElementById('modeAi').classList.toggle('active', mode === 'ai');
+            document.getElementById('mode2p').classList.toggle('active', mode === '2p');
+            init();
+        }
+
+        document.getElementById('resetBtn').addEventListener('click', init);
+        document.getElementById('modeAi').addEventListener('click', () => setMode('ai'));
+        document.getElementById('mode2p').addEventListener('click', () => setMode('2p'));
+        init();
+    </script>
+</body>
+</html>

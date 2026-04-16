@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>to design drugs with graph neural networks - Anya Singh</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style type="text/css">
+        body {
+            margin: 60px auto;
+            max-width: 650px;
+            line-height: 1.7;
+            font-size: 17px;
+            color: #444;
+            padding: 0 20px;
+            text-align: left;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #fcfcfc;
+        }
+
+        h1, h2, h3 {
+            line-height: 1.2;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        header {
+            margin-bottom: 10px;
+        }
+
+        nav {
+            margin-bottom: 25px;
+        }
+
+        nav a {
+            text-decoration: none;
+            margin-right: 20px;
+            color: #444;
+            font-size: 0.95em;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        p {
+            margin-bottom: 25px;
+        }
+
+        ol, ul {
+            margin-left: 20px;
+            margin-bottom: 25px;
+        }
+
+        li {
+            margin-bottom: 12px;
+        }
+
+        h3 {
+            margin-top: 40px;
+            margin-bottom: 15px;
+        }
+
+        figure {
+            margin: 30px 0;
+        }
+
+        figure img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border-radius: 4px;
+        }
+
+        blockquote {
+            margin: 25px 0;
+            padding-left: 20px;
+            border-left: 3px solid #ddd;
+            color: #666;
+            font-style: italic;
+        }
+
+        .post-meta {
+            color: #888;
+            font-size: 0.9em;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                margin: 30px auto;
+                padding: 0 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Anya Singh</h1>
+    </header>
+    <nav>
+        <a href="./index.html">home</a>
+        <a href="./writing.html">writing</a>
+        <a href="./bookshelf.html">bookshelf</a>
+        <a href="./games.html">games</a>
+        <a href="./email.html">email</a>
+    </nav>
+
+    <h2>to design drugs with graph neural networks</h2>
+
+    <p>The problem of drug discovery can be illustrated with this (slightly oversimplified) example. Imagine that a certain protein plays a crucial role in a given disease. To attempt to find a cure for this disease, you can try to inhibit the function of this protein. One of the ways in which you could do this is to try and identify a molecule that can bind in this very well-defined binding pocket. It's not as simple as it sounds. You have a bunch of different criteria that you have to actually optimize in order to find the best molecule. The first criteria is actually finding a molecule that binds to the known protein which would eliminate a lot of molecules from the start.</p>
+
+    <p>Then, you'd want to make sure that the molecule you're taking to the next step is very selective for the protein that you are targeting. You don't want it to be able to bind to any other protein - just the one that it's intended to bind to.</p>
+
+    <figure>
+        <img src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/aa89f881-f48d-4434-9a88-6759d1acfc2f_1415x898.jpeg" alt="">
+    </figure>
+
+    <p>Maybe this means making some small modifications to the candidate molecule. The molecule should also be novel, so there may be a need for further modifications especially if it's been previously patented. Optimizations and modifications can be made to improve the physical properties of the molecules. This is challenging because you have a very large number of interdependent properties that you're trying to optimize over but also because there's a large space of potential solutions. What makes this a difficult problem to solve is the fact that the space of theoretically possible drug-like molecules is between 10^20 to 10^60 number of molecules.</p>
+
+    <p>Traditionally, the drug discovery process involves screening large libraries of compounds. Now, scientists are proposing changes to these promising molecules through more novel methods of drug discovery. Communication to actually build novel drugs is a lengthy process as it involves many people as a result of the varying type of expertise needed. In fact, people spend a few years in the initial drug discovery phases. This is where scientists have become interested in how we can use deep learning to accelerate the drug discovery process.</p>
+
+    <p>Not only do we want to shorten the time that we spend in this initial drug discovery phase but we also would like to be able to find better solutions to increase the likelihood of success of the candidates that are tested in clinical trials.</p>
+
+    <h3>molecular machine learning</h3>
+
+    <p>Let's start with what a simplified molecular machine-learning pipeline looks like for molecular property prediction.</p>
+
+    <figure>
+        <img src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/c474ef08-2139-47d9-841f-f34b33212f84_787x1064.jpeg" alt="">
+    </figure>
+
+    <p>Having a set of different molecules and properties associated with each molecule means that you can take data and fit it into a machine-learning model. This model can help to predict the properties of other molecules that have not yet been seen.</p>
+
+    <p>Drug discovery becomes faster, more efficient, and more reliable when the focus is on property prediction. Property prediction, which is key to many other parts of drug discovery like screening and featurization can be done today, using graph neural networks.</p>
+
+    <figure>
+        <img src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/45a5d2cd-20d6-4e11-b20f-0fcbb4052d57_723x693.jpeg" alt="">
+    </figure>
+
+    <p>To understand why graph neural networks are ideal for drug discovery, we need to understand what a molecule is.</p>
+
+    <p>The definition of a molecule may change based on who you're asking.</p>
+
+    <figure>
+        <img src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/7d3eda4f-be53-4b9b-9f69-944300f8e3a6_809x730.jpeg" alt="">
+    </figure>
+
+    <p>Some people would say that it's a 3D vibrating body that vibrates in space depending on the temperature and environment conditions.</p>
+
+    <p>Other people may say that it's a density of electronic orbitals. The reactivity, shape, and structure of the molecule will depend on where the electrons are at a given time.</p>
+
+    <p>To decide the structure of the molecule, other people would say to look at the surface of the molecule and the electrostatic potential as it dictates how the molecule will interact.</p>
+
+    <h3>learning a model</h3>
+
+    <blockquote>The question is, how do we learn a model to encompass all this knowledge to design molecules?</blockquote>
+
+    <p>With geometric deep learning, we learn on graphs - the 2D structures on moving bodies and on surfaces. Geometric deep learning is very recent in deep learning, but it's becoming more popular, especially in recent years.</p>
+
+    <p>Along with geometric deep learning, transfer learning can be used to learn on one task or representation and then transfer onto another one. You can easily imagine learning how this graph correlates with this 3D vibrating body, so there is essentially shared knowledge between them even though the representation is very different.</p>
+
+    <p>We can also imagine a form of meta-learning (I wrote an article on this earlier). We learn common knowledge across all tasks and representations. Ideally, we would like to be able to do zero-shot or few-shot predictions where we infer some properties without having data.</p>
+
+    <p>We just need to readjust the model using only a few data points and if we really understand what the molecule is, zero-shot and few-shot learning prediction becomes possible. For this, though, we need to have a deeper understanding of the molecule. One of the things that have been done in chemistry and drug discovery for a long time was the use of molecular fingerprints.</p>
+
+    <figure>
+        <img src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/9af3aebe-9a4f-4f97-9b40-78fe28065b48_595x703.jpeg" alt="">
+    </figure>
+
+    <p>Imagine you take this molecule and you find all the fragments in the given molecule. You assign it a different bits but only three fragments are represented. In reality, there are other fragments at the intersection of each of these fragments. Surprisingly, though, this method has been very successful as it works well with settings in which there is no data. It's fast, simple, interpretable, and also the first instance of graph machine learning.</p>
+
+    <figure>
+        <img src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/34942620-cc9c-4be3-8913-496c2c99ce75_1391x1139.jpeg" alt="">
+    </figure>
+
+    <p>This kind of fingerprint shortcut has some problems though. For example, it leads to a limited global understanding of the molecule because you have these piece fragments but you don't really have ideas on how they're placed together.</p>
+
+    <p>There's also collision due to hashing which means it isn't able to tackle large and diverse data sets. The bigger the data set, the bigger the fingerprint you need to have because each byte in the representation can be representative of different structures. Machine learning can't tackle this problem. There isn't any physical or biological reasoning. For example, a large part of the behaviour of a molecule may depend on which substructure is present.</p>
+
+    <p>Defining this can lead to some activity cliffs - tiny changes in the molecule that can lead to a large change in how the molecule behaves. This is because there's no physical or biological understanding of each of these fragments that are just there. If we have electronic orbitals then we can see that small changes can have a larger change on these orbitals. Depending on where the change happens, it can affect many elements or even a single element of the vector.</p>
+
+    <figure>
+        <img src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/8b2f3d79-c793-43b4-a0c8-ba3ea6af7179_1277x675.jpeg" alt="">
+    </figure>
+
+    <p>Because of this limitation, the next step is to use graph machine learning where using the graph structure, we can not only learn a representation that is about which fragments are present, but we can also learn representations that contain knowledge about physics to biology. Moreover, we can compress the compressor substructure more intelligently in a way that is more learned.</p>
+
+    <h3>the molecular maze</h3>
+
+    <p>Across hundreds of videos and articles, the most commonly used analogy for drug discovery with deep learning is with mazes and graphs because they're able to best explain the molecular graph.</p>
+
+    <p>When we want to do property prediction with graph neural networks, first we need to understand why GNNs are optimal. It's arguably the simplest and most common and interpretable representation of a molecule. They don't require simulation or experiments to be used so if you only have a single data set you can use them directly without requiring physical simulation or docking software.</p>
+
+    <figure>
+        <img src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/dd4b8ce4-be25-49ec-bbbb-fe7747a04ac5_240x135.gif" alt="">
+    </figure>
+
+    <p>In the simulation above, brute force methods of simulating drugs in new environments (through reinforcement learning) adapted to different bodily conditions can help test drug effects.</p>
+
+    <p>Working with graphs is similar to navigating a maze where each intersection of the maze can be seen as edges in this molecular graph. Many methods have focused on doing something that looks like a random walk. However, if you're stuck in a maze and you simply walk randomly you're going to stay stuck in the maze for a really long time. You need to really understand the structure of the maze to be able to navigate it as efficiently as possible. Of course, there are many strategies to navigating this maze:</p>
+
+    <figure>
+        <img src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/8a18ea28-2488-47e6-8f65-cb215fde68f5_810x602.jpeg" alt="">
+    </figure>
+
+    <ol>
+        <li>You can walk and look around, but try not to just look around quickly to gather as much information as possible. This strategy can be used but it has problems. For example, it can lead to over-smooothing or a lack of expressivity.</li>
+        <li>You can also colour your way there. As soon as you find some structure then just colour that substructure and you'll be able to navigate the maze more efficiently. If you have too many colours though (too many substructures), it can also become confusing.</li>
+        <li>You can squeeze through narrow paths. This is when the graph is very large. You need the information to pass from very distant neighbours. You have some very strong bottlenecks at some parts of the graph. They don't really apply to standard small molecular graphs.</li>
+        <li>You can destroy the walls which will allow you to connect nodes that seem far away. The problem with this is you could destroy too many walls and the maze would fall apart.</li>
+        <li>Using a map, you can define positional encoding to navigate the graph much more efficiently without getting lost. You do have to make sure that the map that you have is a good representation and gives accurate information about your position. If your map is broken or if your map is wrong, you can get lost even more easily.</li>
+        <li>Of course, you don't even need to navigate the maze if you have wings. In practice, this means a fully-connected graph transformer. The main downside to this strategy is that you need to learn the map before flying and you need lots of 'energy' to fly.</li>
+        <li>You could also ask yourself: why don't we just connect parts in the graph that are very far apart finally listen to the shape of the maze so if you make some noise or knock on the walls, you can hear the resonance of the maze which can help you understand the structure better.</li>
+    </ol>
+
+    <p>All the strategies are essentially just analogies of the different methods that have been developed to build graph neural networks and improve our understanding of drug discovery.</p>
+
+    <p>The maze represents molecular graphs.</p>
+
+    <p>#1, 5, and 6 are generally the most commonly used. Skipping over some theory and implementation to better explore in later posts but I think it's valuable to know what this looks like in practice.</p>
+
+    <h3>implications of molecular mazes</h3>
+
+    <p>Let's imagine ligand and receptor molecules that are represented as graphs containing the appropriate information. We need to pass this information into a graph neural network. The way it works is it passes the node and edge features through a shared hidden layer with softmax activation to build eighteen fingerprints which are sound enough to form a molecular fingerprint</p>
+
+    <p>Previous atom feature vectors are calculated from each atom feature vectors and information about its neighbours. The graph neural network collects the information of neighbouring nodes and edges to each node and edge recursively until the given depth is hit. Later the item and edge fingerprints of a particular depth is collected and passed through a dense layer.</p>
+
+    <p>It's usually fit to some property. Imagine you have a graph and you want to have it as some vectors of some particular shape called embedded space.</p>
+
+    <p>Now, you have to create something - a mapping function from a graph of arbitrary size and shape to some predefined shape of embedding space you want to compute. In the diagram below you can see the neighbouring nodes being tracked in the bottom graph.</p>
+
+    <figure>
+        <img src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/451d18b4-c64b-4028-bf90-ff0c463607f0_509x490.png" alt="">
+    </figure>
+
+    <p>We cursively collect features from these nodes in a way that we multiply all the features of an appropriate node to some activation function.</p>
+
+    <p>If there are multiple nodes, we're basically transforming into embedded space. We can do this by multiplying the value of features of this node for some weight mattress and then summing it up and passing it through an activation function like in a regular neural network. This information can be passed in the next step of recursion - we do that recursively until the given depth is attained.</p>
+
+    <p>There are generally two kinds of graph neural networks: convolutional and recurrent. The main difference is that in recurrent neural networks, we can't apply the same set of weights until a convergence criterion is met. In convolutional neural networks, we apply different weights at each iteration.</p>
+
+    <figure>
+        <img src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/e5bf30f4-048b-466b-92ed-46c782e293c2_744x335.png" alt="">
+    </figure>
+
+    <p>Combining all the pieces of this picture, imagine you have a drug that is represented with the drug's chemical structure, smile.</p>
+
+    <p>The representation for SMILE can be changed into a graph and of course, the same can be done for the target protein as well.</p>
+
+    <p>You can extract a contact map from that. The contact map is a simple representation of a secondary structure of this target protein. Then you transform this contact map into a protein graph. Now, you have two graphs: one for a ligand and one for a receptor. You pass these graphs into graph neural networks. Later, you concatenate these two neural networks and fit them into affinity to create an accurate network that can find the right molecules.</p>
+
+</body>
+</html>
